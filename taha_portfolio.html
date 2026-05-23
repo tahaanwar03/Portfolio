@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taha bin Anwar — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4A843;
+    --gold-dim: #9A7530;
+    --gold-pale: #F2DC9A;
+    --gold-dark: #5C3E0A;
+    --ink: #070709;
+    --ink-mid: #0E0E12;
+    --ink-light: #16161C;
+    --fog: #252530;
+    --ash: #3A3A48;
+    --mist: #7A7A8C;
+    --smoke: #B0B0C0;
+    --cream: #F0EDE6;
+    --white: #FFFFFF;
+    --accent-blue: #3B6FD4;
+    --accent-teal: #2A9D8F;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease, background 0.2s;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(212,168,67,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.2s ease;
+  }
+
+  /* GRAIN OVERLAY */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 900;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 500;
+    padding: 1.4rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.5s ease;
+  }
+  nav.scrolled {
+    background: rgba(7,7,9,0.88);
+    border-bottom: 1px solid rgba(212,168,67,0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.8rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* ═══════════ HERO ═══════════ */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 9rem 5rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Hero background gradient mesh */
+  #hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 75% 20%, rgba(212,168,67,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(59,111,212,0.05) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 90% 90%, rgba(42,157,143,0.04) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-grid-line {
+    position: absolute;
+    background: rgba(212,168,67,0.05);
+  }
+  .hero-grid-line.v { width: 1px; top: 0; bottom: 0; }
+  .hero-grid-line.h { height: 1px; left: 0; right: 0; }
+  .hero-grid-line.l1 { left: 20%; }
+  .hero-grid-line.l2 { left: 60%; }
+  .hero-grid-line.h1 { top: 32%; }
+  .hero-grid-line.h2 { top: 72%; }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.32em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 2.5rem; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(5rem, 11vw, 10rem);
+    font-weight: 300;
+    line-height: 0.88;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.35s forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-pale) 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.3rem, 3vw, 2.2rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--mist);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.55s forwards;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-tagline {
+    max-width: 520px;
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--mist);
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.75s forwards;
+    margin-bottom: 3.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.95s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 1rem 2.4rem;
+    background: linear-gradient(135deg, var(--gold) 0%, #B8922E 100%);
+    color: var(--ink);
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--gold-pale) 0%, var(--gold) 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-primary:hover::before { opacity: 1; }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(212,168,67,0.25); }
+  .btn-primary span { position: relative; z-index: 1; }
+
+  .btn-ghost {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    text-decoration: none;
+    border-bottom: 1px solid var(--ash);
+    padding-bottom: 3px;
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+  .hero-stats {
+    position: absolute;
+    right: 5rem;
+    bottom: 7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+    opacity: 0;
+    animation: fadeLeft 1s ease 1.1s forwards;
+  }
+  .stat-item { text-align: right; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-pale) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mist);
+    margin-top: 0.3rem;
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2.8rem;
+    left: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.3s forwards;
+  }
+  .scroll-line {
+    width: 44px; height: 1px;
+    background: var(--gold-dim);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: -100%; top: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to right, transparent, var(--gold));
+    animation: slideRight 2.2s ease-in-out infinite;
+  }
+  .scroll-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mist);
+  }
+
+  /* ═══════════ SHARED SECTION STYLES ═══════════ */
+  section { padding: 9rem 5rem; position: relative; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 2rem; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+  }
+  .section-title em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold) 30%, var(--gold-pale) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ═══════════ ABOUT ═══════════ */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7rem;
+    align-items: start;
+    border-top: 1px solid var(--fog);
+    background:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(212,168,67,0.03) 0%, transparent 70%);
+  }
+  .about-body {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--mist);
+    font-weight: 300;
+    margin-top: 2.8rem;
+  }
+  .about-body strong { color: var(--cream); font-weight: 400; }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 5.5rem;
+  }
+  .identity-card {
+    border: 1px solid var(--fog);
+    padding: 2rem 2.2rem;
+    position: relative;
+    transition: border-color 0.4s, background 0.4s;
+    background: rgba(14,14,18,0.6);
+    overflow: hidden;
+  }
+  .identity-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(to bottom, var(--gold), var(--gold-pale));
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+  }
+  .identity-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 0% 50%, rgba(212,168,67,0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .identity-card:hover { border-color: rgba(212,168,67,0.3); }
+  .identity-card:hover::before { transform: scaleY(1); }
+  .identity-card:hover::after { opacity: 1; }
+  .identity-card-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 0.8rem;
+    position: relative; z-index: 1;
+  }
+  .identity-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 0.6rem;
+    position: relative; z-index: 1;
+  }
+  .identity-card-desc {
+    font-size: 0.83rem;
+    line-height: 1.75;
+    color: var(--mist);
+    position: relative; z-index: 1;
+  }
+
+  /* ═══════════ SKILLS ═══════════ */
+  #skills {
+    background:
+      radial-gradient(ellipse 100% 60% at 50% 100%, rgba(59,111,212,0.04) 0%, transparent 70%),
+      var(--ink-mid);
+    border-top: 1px solid var(--fog);
+  }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 4.5rem;
+    border: 1px solid var(--fog);
+  }
+  .skill-block {
+    padding: 2.8rem;
+    border-right: 1px solid var(--fog);
+    border-bottom: 1px solid var(--fog);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.35s;
+  }
+  .skill-block:hover {
+    background: rgba(212,168,67,0.04);
+  }
+  .skill-block::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212,168,67,0.3), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .skill-block:hover::before { opacity: 1; }
+  .skill-block:nth-child(3n) { border-right: none; }
+  .skill-block:nth-last-child(-n+3) { border-bottom: none; }
+  .skill-block-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem;
+    font-weight: 300;
+    color: rgba(212,168,67,0.08);
+    line-height: 1;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+  .skill-block:hover .skill-block-num { color: rgba(212,168,67,0.18); }
+  .skill-block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 1.2rem;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+  .skill-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    padding: 0.28rem 0.65rem;
+    border: 1px solid var(--ash);
+    color: var(--mist);
+    text-transform: uppercase;
+    transition: all 0.25s;
+  }
+  .skill-tag:hover { border-color: var(--gold-dim); color: var(--gold); background: rgba(212,168,67,0.05); }
+
+  /* ═══════════ EXPERIENCE ═══════════ */
+  #experience {
+    border-top: 1px solid var(--fog);
+    background: radial-gradient(ellipse 70% 50% at 100% 50%, rgba(212,168,67,0.03) 0%, transparent 60%);
+  }
+  .exp-grid {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 7rem;
+    margin-top: 4.5rem;
+  }
+  .timeline { display: flex; flex-direction: column; position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, var(--gold), rgba(212,168,67,0.2), transparent);
+  }
+  .tl-item {
+    padding: 0 0 2.8rem 2rem;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 5px;
+    width: 9px; height: 9px;
+    border: 1px solid var(--ash);
+    background: var(--ink);
+    border-radius: 50%;
+    transition: all 0.35s;
+  }
+  .tl-item.active::before {
+    border-color: var(--gold);
+    background: var(--gold);
+    box-shadow: 0 0 16px rgba(212,168,67,0.5);
+  }
+  .tl-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold-dim);
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .tl-org {
+    font-size: 0.84rem;
+    font-weight: 400;
+    color: var(--smoke);
+    margin-bottom: 0.2rem;
+    transition: color 0.3s;
+  }
+  .tl-item.active .tl-org { color: var(--white); }
+  .tl-role { font-size: 0.74rem; color: var(--mist); }
+
+  .exp-detail { display: none; }
+  .exp-detail.active { display: block; animation: fadeIn 0.4s ease; }
+  .exp-detail-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.26em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+  .exp-detail-org {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .exp-detail-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--smoke);
+    margin-bottom: 2rem;
+  }
+  .exp-detail-body {
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--mist);
+    max-width: 520px;
+  }
+  .exp-bullets {
+    margin-top: 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+  .exp-bullet {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.84rem;
+    line-height: 1.65;
+    color: var(--smoke);
+  }
+  .exp-bullet::before {
+    content: '—';
+    background: linear-gradient(135deg, var(--gold), var(--gold-pale));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════ PROJECTS ═══════════ */
+  #projects {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(42,157,143,0.04) 0%, transparent 65%),
+      var(--ink-mid);
+    border-top: 1px solid var(--fog);
+  }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4.5rem;
+  }
+  .project-card {
+    border: 1px solid var(--fog);
+    padding: 2.2rem;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+    background: var(--ink);
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(212,168,67,0.06) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(to right, var(--gold), var(--gold-pale), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s ease;
+  }
+  .project-card:hover::before { opacity: 1; }
+  .project-card:hover::after { transform: scaleX(1); }
+  .project-card:hover {
+    border-color: rgba(212,168,67,0.25);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.4);
+  }
+  .project-card:hover .project-arrow { transform: translate(5px, -5px); color: var(--gold); }
+  .project-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.6rem;
+    display: block;
+    position: relative; z-index: 1;
+  }
+  .project-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.65rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    position: relative; z-index: 1;
+  }
+  .project-desc {
+    font-size: 0.82rem;
+    line-height: 1.8;
+    color: var(--mist);
+    margin-bottom: 2rem;
+    flex: 1;
+    position: relative; z-index: 1;
+  }
+  .project-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--fog);
+    padding-top: 1.2rem;
+    position: relative; z-index: 1;
+  }
+  .project-stack { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+  .stack-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.54rem;
+    letter-spacing: 0.1em;
+    color: var(--ash);
+    text-transform: uppercase;
+  }
+  .project-arrow {
+    font-size: 1.1rem;
+    color: var(--ash);
+    transition: all 0.3s ease;
+  }
+  .project-github {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mist);
+    text-decoration: none;
+    border: 1px solid var(--ash);
+    padding: 0.3rem 0.7rem;
+    margin-top: 1rem;
+    transition: all 0.25s;
+    position: relative; z-index: 2;
+  }
+  .project-github:hover { color: var(--gold); border-color: var(--gold-dim); background: rgba(212,168,67,0.05); }
+
+  /* ═══════════ SPORTS ═══════════ */
+  #sports { border-top: 1px solid var(--fog); }
+  .sports-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4.5rem;
+  }
+  .sport-item {
+    text-align: center;
+    padding: 3.5rem 2rem;
+    border: 1px solid var(--fog);
+    position: relative;
+    transition: all 0.35s;
+    overflow: hidden;
+  }
+  .sport-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(212,168,67,0.06) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .sport-item:hover { border-color: rgba(212,168,67,0.25); }
+  .sport-item:hover::before { opacity: 1; }
+  .sport-icon {
+    font-size: 2.8rem;
+    margin-bottom: 1.6rem;
+    display: block;
+  }
+  .sport-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 0.9rem;
+  }
+  .sport-detail {
+    font-size: 0.8rem;
+    line-height: 1.75;
+    color: var(--mist);
+  }
+  .sport-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-top: 1.2rem;
+    display: block;
+  }
+
+  /* ═══════════ INTERESTS ═══════════ */
+  #interests {
+    background:
+      radial-gradient(ellipse 100% 60% at 0% 50%, rgba(59,111,212,0.04) 0%, transparent 60%),
+      var(--ink-mid);
+    border-top: 1px solid var(--fog);
+  }
+  .interests-flex {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 3.5rem;
+  }
+  .interest-pill {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 300;
+    font-style: italic;
+    padding: 0.75rem 2rem;
+    border: 1px solid var(--fog);
+    color: var(--smoke);
+    transition: all 0.3s;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .interest-pill::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(212,168,67,0.08) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .interest-pill:hover { border-color: rgba(212,168,67,0.3); color: var(--gold-pale); }
+  .interest-pill:hover::before { opacity: 1; }
+
+  /* ═══════════ CONTACT ═══════════ */
+  #contact {
+    border-top: 1px solid var(--fog);
+    text-align: center;
+    padding: 11rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  #contact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 50%, rgba(212,168,67,0.05) 0%, transparent 65%),
+      radial-gradient(ellipse 40% 30% at 20% 80%, rgba(59,111,212,0.04) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .contact-pre {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 2rem;
+    position: relative; z-index: 1;
+  }
+  .contact-big {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 8rem);
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 3rem;
+    position: relative; z-index: 1;
+  }
+  .contact-big em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-pale) 60%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .contact-sub {
+    font-size: 0.95rem;
+    color: var(--mist);
+    line-height: 1.85;
+    max-width: 440px;
+    margin: 0 auto 5rem;
+    position: relative; z-index: 1;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .contact-link {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    transition: all 0.3s;
+  }
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mist);
+    transition: color 0.3s;
+  }
+  .contact-link-val {
+    font-size: 0.9rem;
+    color: var(--smoke);
+    transition: color 0.3s;
+  }
+  .contact-link:hover .contact-link-label { color: var(--gold); }
+  .contact-link:hover .contact-link-val { color: var(--white); }
+
+  .contact-cta {
+    margin-top: 4rem;
+    position: relative; z-index: 1;
+  }
+
+  /* ═══════════ FOOTER ═══════════ */
+  footer {
+    border-top: 1px solid var(--fog);
+    padding: 2rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--ink-mid);
+  }
+  .footer-left {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--ash);
+  }
+  .footer-right {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    color: var(--ash);
+  }
+
+  /* ═══════════ ANIMATIONS ═══════════ */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(24px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes slideRight {
+    0%   { left: -100%; }
+    50%  { left: 100%; }
+    100% { left: 100%; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">T. Anwar</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#sports">Sports</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid-line v l1"></div>
+  <div class="hero-grid-line v l2"></div>
+  <div class="hero-grid-line h h1"></div>
+  <div class="hero-grid-line h h2"></div>
+
+  <div class="hero-eyebrow">Final Year MBBS · Content Strategist · Builder</div>
+  <h1 class="hero-name">Taha<br><em>bin Anwar</em></h1>
+  <p class="hero-title">Medicine. Markets. Media.</p>
+  <p class="hero-tagline">
+    A final-year medical student at Jinnah Sindh Medical University who bridges clinical expertise with content strategy, technical analysis, and software development — creating at the intersection of health, finance, and narrative.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary"><span>View Work ↗</span></a>
+    <a href="#contact" class="btn-ghost">Get in Touch</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">3.0</div>
+      <div class="stat-label">CGPA · JSMU</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Workshops Organized</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Live Projects</div>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left">
+    <div class="section-label">About</div>
+    <h2 class="section-title">Rare depth<br>across <em>domains</em></h2>
+    <p class="about-body">
+      Born November 2003 in Karachi. Currently in final year MBBS at <strong>Jinnah Sindh Medical University</strong>, the second-ranked medical college in Karachi — graduating 2027.<br><br>
+      My background spans <strong>clinical medicine</strong>, two years of <strong>crypto trading</strong> built on auction market theory and ICT methodology, several months of <strong>building live applications</strong> that solve real problems, and active leadership in medical education.<br><br>
+      I speak Urdu natively, English fluently, and functional Turkish. I'm a class prefect turned clinical group leader turned organization director — the thread is always the same: <strong>I build things and I lead them.</strong>
+    </p>
+  </div>
+  <div class="about-right reveal">
+    <div class="identity-card">
+      <div class="identity-card-icon">01 — Clinician</div>
+      <div class="identity-card-title">Medical Scholar</div>
+      <div class="identity-card-desc">5 years of MBBS across Internal Medicine, Pediatrics, General Surgery, and Psychiatry. Clinical skills: history-taking, physical examination, case presentation, basic suturing, IV cannulation.</div>
+    </div>
+    <div class="identity-card">
+      <div class="identity-card-icon">02 — Analyst</div>
+      <div class="identity-card-title">Technical Trader</div>
+      <div class="identity-card-desc">Two years in crypto markets. Advanced technical analysis via auction market theory, market structure, order flow, and ICT methodology. Disciplined risk management with basic fundamental and sentiment analysis.</div>
+    </div>
+    <div class="identity-card">
+      <div class="identity-card-icon">03 — Builder</div>
+      <div class="identity-card-title">Developer & Creator</div>
+      <div class="identity-card-desc">React, Next.js, Firebase. Four live projects on Vercel. AI-powered workflows using Claude, Antigravity, Codex, and Cursor. Prompt engineering, content strategy, and brand voice across medical and finance niches.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label reveal">Skills</div>
+  <h2 class="section-title reveal">What I <em>bring</em></h2>
+
+  <div class="skills-grid reveal">
+    <div class="skill-block">
+      <div class="skill-block-num">01</div>
+      <div class="skill-block-title">Clinical Practice</div>
+      <div class="skill-tags">
+        <span class="skill-tag">History Taking</span>
+        <span class="skill-tag">Physical Exam</span>
+        <span class="skill-tag">Case Presentation</span>
+        <span class="skill-tag">IV Cannulation</span>
+        <span class="skill-tag">Basic Suturing</span>
+        <span class="skill-tag">Emergency Response</span>
+        <span class="skill-tag">Resuscitation</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-num">02</div>
+      <div class="skill-block-title">Content Strategy</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Script Writing</span>
+        <span class="skill-tag">Hook Frameworks</span>
+        <span class="skill-tag">AIDA / PAS</span>
+        <span class="skill-tag">Retention Scripting</span>
+        <span class="skill-tag">B-roll Scripting</span>
+        <span class="skill-tag">Platform Adaptation</span>
+        <span class="skill-tag">CTA Placement</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-num">03</div>
+      <div class="skill-block-title">Prompt Engineering</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Prompt Chaining</span>
+        <span class="skill-tag">System Prompts</span>
+        <span class="skill-tag">Role-Prompting</span>
+        <span class="skill-tag">Few-Shot</span>
+        <span class="skill-tag">Output Formatting</span>
+        <span class="skill-tag">Iterative Refinement</span>
+        <span class="skill-tag">Context Management</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-num">04</div>
+      <div class="skill-block-title">Content Curation</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Trend Research</span>
+        <span class="skill-tag">Competitor Analysis</span>
+        <span class="skill-tag">Topic Clustering</span>
+        <span class="skill-tag">Content Calendars</span>
+        <span class="skill-tag">Repurposing</span>
+        <span class="skill-tag">Fact-Checking</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-num">05</div>
+      <div class="skill-block-title">Deck & Presentation</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Slide Hierarchy</span>
+        <span class="skill-tag">Storytelling Decks</span>
+        <span class="skill-tag">Data Visualization</span>
+        <span class="skill-tag">Canva</span>
+        <span class="skill-tag">Gamma.app</span>
+        <span class="skill-tag">Google Slides</span>
+        <span class="skill-tag">PowerPoint</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-block-num">06</div>
+      <div class="skill-block-title">Technical Development</div>
+      <div class="skill-tags">
+        <span class="skill-tag">React</span>
+        <span class="skill-tag">Next.js</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">Vercel</span>
+        <span class="skill-tag">Antigravity</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Codex</span>
+        <span class="skill-tag">Cursor</span>
+        <span class="skill-tag">Brand Voice Docs</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label reveal">Experience</div>
+  <h2 class="section-title reveal">Where I've <em>led</em></h2>
+
+  <div class="exp-grid">
+    <div class="timeline">
+      <div class="tl-item active" data-exp="imig">
+        <div class="tl-year">2025 – 2026</div>
+        <div class="tl-org">Internal Medicine Interest Group</div>
+        <div class="tl-role">Assistant Director, Guidance</div>
+      </div>
+      <div class="tl-item" data-exp="group">
+        <div class="tl-year">2022 – Present</div>
+        <div class="tl-org">Jinnah Sindh Medical University</div>
+        <div class="tl-role">Clinical Group Leader</div>
+      </div>
+      <div class="tl-item" data-exp="teaching">
+        <div class="tl-year">2023 – 2024</div>
+        <div class="tl-org">Private Tuition</div>
+        <div class="tl-role">Biology Educator</div>
+      </div>
+      <div class="tl-item" data-exp="trading">
+        <div class="tl-year">2024 – Present</div>
+        <div class="tl-org">Independent</div>
+        <div class="tl-role">Crypto Day Trader</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="exp-detail active" id="exp-imig">
+        <div class="exp-detail-year">2025 – 2026 · Largest Student-Led Org, JSMU</div>
+        <div class="exp-detail-org">Internal Medicine<br>Interest Group</div>
+        <div class="exp-detail-role">Assistant Director, Guidance Department</div>
+        <div class="exp-detail-body">Led the student engagement and skills development vertical of JSMU's largest student organization during a full one-year tenure.</div>
+        <div class="exp-bullets">
+          <div class="exp-bullet">Organized 10+ skill-based workshops with 20–40 students each, covering clinical procedures and examination prep</div>
+          <div class="exp-bullet">Hosted mock OSPE and mock OSCE preparation events for junior cohorts</div>
+          <div class="exp-bullet">Managed communication across a multi-layer team: student leads, faculty physicians, and department coordinators</div>
+          <div class="exp-bullet">Improved team performance through structured delegation and stakeholder communication protocols</div>
+        </div>
+      </div>
+
+      <div class="exp-detail" id="exp-group">
+        <div class="exp-detail-year">2022 – Present · JSMU Clinical Rotations</div>
+        <div class="exp-detail-org">Clinical Group<br>Leader</div>
+        <div class="exp-detail-role">Group of 45 Students · 3rd to 5th Year</div>
+        <div class="exp-detail-body">Elected and sustained as group leader for three consecutive years across all major hospital rotations.</div>
+        <div class="exp-bullets">
+          <div class="exp-bullet">Liaison between 45 students and multiple ward consultants across Internal Medicine, Pediatrics, General Surgery, and Psychiatry</div>
+          <div class="exp-bullet">Coordinated ward schedules, examination logistics, and clinical activity across rotations</div>
+          <div class="exp-bullet">Managed deadline-sensitive exam communication between students and multiple department heads simultaneously</div>
+        </div>
+      </div>
+
+      <div class="exp-detail" id="exp-teaching">
+        <div class="exp-detail-year">2023 – 2024 · Physical Teaching</div>
+        <div class="exp-detail-org">Biology<br>Educator</div>
+        <div class="exp-detail-role">CBSE Board · Grades 9–12</div>
+        <div class="exp-detail-body">Two years of in-person biology tutoring for secondary students preparing for board examinations.</div>
+        <div class="exp-bullets">
+          <div class="exp-bullet">Taught batches of 25–40 students across grade 9 to 12 for the CBSE curriculum</div>
+          <div class="exp-bullet">Developed session plans covering genetics, physiology, ecology, and exam-focused revision</div>
+          <div class="exp-bullet">Consistently received returning students across academic years</div>
+        </div>
+      </div>
+
+      <div class="exp-detail" id="exp-trading">
+        <div class="exp-detail-year">2024 – Present · Crypto Markets</div>
+        <div class="exp-detail-org">Independent<br>Trader</div>
+        <div class="exp-detail-role">Advanced Technical Analyst</div>
+        <div class="exp-detail-body">Active participation in cryptocurrency markets, developing a disciplined analytical framework from the ground up.</div>
+        <div class="exp-bullets">
+          <div class="exp-bullet">Mastered auction market theory, market structure analysis, and order flow interpretation</div>
+          <div class="exp-bullet">Applied ICT (Inner Circle Trader) methodology and price action models</div>
+          <div class="exp-bullet">Maintains disciplined risk management with basic fundamental and sentiment analysis overlay</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label reveal">Projects</div>
+  <h2 class="section-title reveal">Things I've <em>built</em></h2>
+
+  <div class="projects-grid reveal">
+    <!-- DxComp -->
+    <div class="project-card" style="cursor:default">
+      <span class="project-tag">MVP · Medical Education</span>
+      <div class="project-title">DxComp — Differential Companion</div>
+      <div class="project-desc">An AI-assisted history-taking application for medical students. Currently an MVP with 6 chief complaint categories and 110 ranked clinical deficiencies. Built to help junior doctors and residents master patient management through structured differential diagnosis learning.</div>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="stack-item">React</span>
+          <span class="stack-item">·</span>
+          <span class="stack-item">Firebase</span>
+          <span class="stack-item">·</span>
+          <span class="stack-item">AI</span>
+        </div>
+        <span class="project-arrow" style="color:var(--ash)">—</span>
+      </div>
+    </div>
+
+    <!-- Endgame Society -->
+    <a class="project-card" href="https://endgame-society.vercel.app" target="_blank">
+      <span class="project-tag">Live · Student Club</span>
+      <div class="project-title">Endgame Society</div>
+      <div class="project-desc">A full chess club platform for JSMU's chess community. Includes player profiles, tournament management, and club infrastructure — the first dedicated digital home for university chess in Karachi.</div>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="stack-item">Next.js</span>
+          <span class="stack-item">·</span>
+          <span class="stack-item">Firebase</span>
+          <span class="stack-item">·</span>
+          <span class="stack-item">Vercel</span>
+        </div>
+        <span class="project-arrow">↗</span>
+      </div>
+    </a>
+
+    <!-- Restaurant -->
+    <div class="project-card" style="cursor:default">
+      <span class="project-tag">Live · Restaurant Tech</span>
+      <div class="project-title">Restaurant Order System</div>
+      <div class="project-desc">Solved a real operational pain point for a local restaurant using WhatsApp as their only ordering channel. Built a customer-facing website and a full admin panel with order management, real-time updates, and analytics dashboard.</div>
+      <div class="project-footer">
+        <div class="project-stack">
+          <span class="stack-item">React</span>
+          <span class="stack-item">·</span>
+          <span class="stack-item">Admin Panel</span>
+          <span class="stack-item">·</span>
+          <span class="stack-item">Analytics</span>
+        </div>
+        <span class="project-arrow" style="color:var(--ash)">—</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPORTS -->
+<section id="sports">
+  <div class="section-label reveal">Sports & Pursuits</div>
+  <h2 class="section-title reveal">Beyond the <em>ward</em></h2>
+
+  <div class="sports-row reveal">
+    <div class="sport-item">
+      <span class="sport-icon">🏐</span>
+      <div class="sport-name">Volleyball</div>
+      <div class="sport-detail">University team core member since 3rd year MBBS. Captained in 1 tournament, vice-captain in 4. Quarterfinals at AKU Sports Olympiad — Karachi's biggest collegiate sports event. Finalists and semi-finalists across 6 intra-university competitions.</div>
+      <span class="sport-badge">Vice-Captain · AKU Olympiad QF</span>
+    </div>
+    <div class="sport-item">
+      <span class="sport-icon">🏏</span>
+      <div class="sport-name">Cricket</div>
+      <div class="sport-detail">Playing since school. Active in university cricket through the first two years of MBBS. The sport where the discipline of team play and reading the game first developed.</div>
+      <span class="sport-badge">School & University Level</span>
+    </div>
+    <div class="sport-item">
+      <span class="sport-icon">♟</span>
+      <div class="sport-name">Chess</div>
+      <div class="sport-detail">Four years of serious play. Founded and built the Endgame Society — JSMU's chess club — and deployed a live digital platform for it. Chess as both sport and intellectual practice.</div>
+      <span class="sport-badge">Club Founder · 4 Years</span>
+    </div>
+  </div>
+</section>
+
+<!-- INTERESTS -->
+<section id="interests">
+  <div class="section-label reveal">Research Interests</div>
+  <h2 class="section-title reveal">What drives <em>curiosity</em></h2>
+  <div class="interests-flex reveal">
+    <span class="interest-pill">AI in Medicine</span>
+    <span class="interest-pill">Sports Medicine</span>
+    <span class="interest-pill">Fitness & Exercise Physiology</span>
+    <span class="interest-pill">Clinical EdTech</span>
+    <span class="interest-pill">AI-Assisted Diagnostics</span>
+    <span class="interest-pill">Behavioral Finance</span>
+    <span class="interest-pill">Medical Content Creation</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-pre">Let's connect</p>
+  <h2 class="contact-big">Work with<br><em>Taha</em></h2>
+  <p class="contact-sub">Available for content strategy, script writing, medical content creation, and technical projects in health and finance. Based in Karachi.</p>
+  <div class="contact-links">
+    <a href="mailto:tahabinanwar@gmail.com" class="contact-link">
+      <span class="contact-link-label">Email</span>
+      <span class="contact-link-val">tahabinanwar@gmail.com</span>
+    </a>
+    <a href="https://github.com/tahabinanwar" target="_blank" class="contact-link">
+      <span class="contact-link-label">GitHub</span>
+      <span class="contact-link-val">github.com/tahabinanwar</span>
+    </a>
+    <a href="https://www.linkedin.com/in/taha-anwar-496515225/" target="_blank" class="contact-link">
+      <span class="contact-link-label">LinkedIn</span>
+      <span class="contact-link-val">Taha bin Anwar</span>
+    </a>
+    <a href="https://contra.com/taha_anwar_7lggzsv7/work?r=taha_anwar_7lggzsv7" target="_blank" class="contact-link">
+      <span class="contact-link-label">Contra</span>
+      <span class="contact-link-val">contra.com/taha_anwar</span>
+    </a>
+    <div class="contact-link" style="cursor:default">
+      <span class="contact-link-label">Location</span>
+      <span class="contact-link-val">Karachi, Pakistan</span>
+    </div>
+  </div>
+  <div class="contact-cta">
+    <a href="mailto:tahabinanwar@gmail.com" class="btn-primary"><span>Send a Message ↗</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2025 Taha bin Anwar · All Rights Reserved</div>
+  <div class="footer-right">MBBS · JSMU · Karachi</div>
+</footer>
+
+<script>
+  // ── Cursor
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top  = my + 'px';
+  });
+  (function animRing() {
+    rx += (mx - rx) * 0.13;
+    ry += (my - ry) * 0.13;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a, button, .tl-item, .identity-card, .skill-block, .sport-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.2)';
+      ring.style.transform   = 'translate(-50%,-50%) scale(1.5)';
+      ring.style.borderColor = 'rgba(212,168,67,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.transform   = 'translate(-50%,-50%) scale(1)';
+      ring.style.borderColor = 'rgba(212,168,67,0.5)';
+    });
+  });
+
+  // ── Nav scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── Scroll reveal
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 90);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ── Experience timeline tabs
+  document.querySelectorAll('.tl-item').forEach(item => {
+    item.addEventListener('click', () => {
+      document.querySelectorAll('.tl-item').forEach(i => i.classList.remove('active'));
+      document.querySelectorAll('.exp-detail').forEach(d => d.classList.remove('active'));
+      item.classList.add('active');
+      const el = document.getElementById('exp-' + item.dataset.exp);
+      if (el) el.classList.add('active');
+    });
+  });
+
+  // ── Nav smooth scroll (all anchor hrefs)
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
